@@ -11,7 +11,7 @@ model User {
   id                 String      @default(uuid())
   name               String
   passwordHash       String
-  email              String      @unique
+  email              String     @unique
   role               Role        @default(USER)
   department         String      @default("CSE")
   complaints         Complaint[] @relation("UserComplaint")
