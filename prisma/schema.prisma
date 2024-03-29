@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 String      @default(uuid())
+  name               String
+  passwordHash       String
+  email              String      @unique
+  role               Role        @default(USER)
+  department         String      @default("CSE")
+  complaints         Complaint[] @relation("UserComplaint")
+  assignedComplaints Complaint[] @relation("comp")
+  createdAt          DateTime    @default(now())
+}
+
+model Complaint {
+  id        Int    @unique @default(autoincrement())
+  User      User   @relation("UserComplaint", fields: [userEmail], references: [email])
+  userEmail String
+  title     String
+  room_n0   Int
+
+  department  String //automatic filling by logged in user
+  reported_by String //automatic filling by logged in user
+
+  requested_by String
+  body         String
+  status       Status @default(OPEN)
+
+  // Assinging complain to some worker
+  workerId    String?
+  Worker      User?     @relation("comp", fields: [workerId], references: [email])
+  assigned_at DateTime?
+  due_date    DateTime?
+
+  // Getting user feedback and admin feedback
+  feedback    String?
+  admin_notes String?
+}
+
+enum Role {
+  USER
+  ADMIN
+  WORKER
+}
+
+enum Status {
+  OPEN
+  CLOSE
+}
