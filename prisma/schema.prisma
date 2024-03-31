@@ -21,7 +21,7 @@ model User {
 
 model Complaint {
   id        Int    @unique @default(autoincrement())
-  User      User   @relation("UserComplaint", fields: [userEmail], references: [email])
+  User      User   @relation("UserComplaint", fields: [userEmail], references: [email], onDelete: Cascade)
   userEmail String
   title     String
   room_n0   Int
@@ -35,7 +35,7 @@ model Complaint {
 
   // Assinging complain to some worker
   workerId    String?
-  Worker      User?     @relation("comp", fields: [workerId], references: [email])
+  Worker      User?     @relation("comp", fields: [workerId], references: [email], onDelete: Cascade)
   assigned_at DateTime?
   due_date    DateTime?
 
