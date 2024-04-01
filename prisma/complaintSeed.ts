@@ -84,6 +84,7 @@ async function seed() {
         return db.complaint.create({ data: complaint });
       })
     );
+    console.log("Seed data has been inserted successfully.");
   } catch (error) {
     console.log("Error seed database", error);
   } finally {
