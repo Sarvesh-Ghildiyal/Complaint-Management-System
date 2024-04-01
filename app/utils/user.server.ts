@@ -32,7 +32,8 @@ export const loadComplainData = async ({ params }:LoaderFunctionArgs) => {
       break;
     default:
       // Handle invalid action
-      throw new Error("Invalid action");
+      // throw new Error("Invalid action");
+      return null
   }
 
   return json(data);

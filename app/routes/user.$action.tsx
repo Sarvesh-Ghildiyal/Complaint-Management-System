@@ -13,7 +13,7 @@ export const loader: LoaderFunction = async ({
   params,
 }: LoaderFunctionArgs) => {
   // Call the loader function from utils based on the action parameter
-  console.log(params)
+  console.log({params})
   return loadComplainData({params} as LoaderFunctionArgs)
 };
 
