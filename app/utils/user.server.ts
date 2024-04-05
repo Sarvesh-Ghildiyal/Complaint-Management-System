@@ -59,7 +59,10 @@ export const actionComplainData = async ({
     });
 
     if (complaint) {
-      if (action == "edit") editAction({ complaint, request });
+      if (action == "edit"){
+        const msg = editAction({ complaint, request });
+        return msg;
+      }
       else if (action == "delete") deleteAction(complaint);
       else if (action == "view" || action == "status" || action == "remark")
         return complaint;
@@ -84,6 +87,7 @@ const editAction = async ({
 
   // edit the complaint based on its data
   console.log(formData.get("name"), complaint.id);
+  return json("edited succesfully")
 };
 
 const deleteAction = async (complaint: Complaint) => {
