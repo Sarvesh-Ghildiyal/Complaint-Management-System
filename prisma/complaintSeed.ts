@@ -3,7 +3,7 @@ import { db } from "~/utils/db.server";
 function getComplaints() {
   return [
     {
-      userEmail: "user@gmail.com",
+      userId: "6ccdfaf1-116b-4f18-aab9-71749defc144",
       title: "Printer not working",
       room_n0: 205,
       department: "CSE",
@@ -12,7 +12,7 @@ function getComplaints() {
       body: "printers not working properly",
     },
     {
-      userEmail: "user@gmail.com",
+      userId: "6ccdfaf1-116b-4f18-aab9-71749defc144",
       title: "AC not working",
       room_n0: 205,
       department: "CSE",
@@ -21,7 +21,7 @@ function getComplaints() {
       body: "AC not working properly",
     },
     {
-      userEmail: "user@gmail.com",
+      userId: "6ccdfaf1-116b-4f18-aab9-71749defc144",
       title: "Fan not working",
       room_n0: 205,
       department: "CSE",
@@ -30,7 +30,7 @@ function getComplaints() {
       body: "Fan not working properly",
     },
     {
-      userEmail: "user@gmail.com",
+      userId: "6ccdfaf1-116b-4f18-aab9-71749defc144",
       title: "Chair not working",
       room_n0: 205,
       department: "CSE",
@@ -39,7 +39,7 @@ function getComplaints() {
       body: "Chair not working properly",
     },
     {
-      userEmail: "user@gmail.com",
+      userId: "6ccdfaf1-116b-4f18-aab9-71749defc144",
       title: "Table not working",
       room_n0: 205,
       department: "CSE",
@@ -48,7 +48,7 @@ function getComplaints() {
       body: "Table not working properly",
     },
     {
-      userEmail: "user@gmail.com",
+      userId: "6ccdfaf1-116b-4f18-aab9-71749defc144",
       title: "Heat not working",
       room_n0: 205,
       department: "CSE",
@@ -57,7 +57,7 @@ function getComplaints() {
       body: "Heat not working properly",
     },
     {
-      userEmail: "admin@gmail.com",
+      userId: "7029e61c-84dd-4575-bbeb-e6c337fa4058",
       title: "Projector not working",
       room_n0: 205,
       department: "CSE",
@@ -66,7 +66,7 @@ function getComplaints() {
       body: "Projector not working properly",
     },
     {
-      userEmail: "worker@gmail.com",
+      userId: "f86026c5-3070-425f-9986-509529ce4b7a",
       title: "Computer not working",
       room_n0: 205,
       department: "CSE",

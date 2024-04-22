@@ -8,7 +8,7 @@ datasource db {
 }
 
 model User {
-  id                 String      @default(uuid())
+  id                 String     @unique @default(uuid())
   name               String
   passwordHash       String
   email              String      @unique
@@ -22,8 +22,8 @@ model User {
 
 model Complaint {
   id        Int    @unique @default(autoincrement())
-  User      User   @relation("UserComplaint", fields: [userEmail], references: [email], onDelete: Cascade)
-  userEmail String
+  User      User   @relation("UserComplaint", fields: [userId], references: [id], onDelete: Cascade)
+  userId String
   title     String
   room_n0   Int
 
