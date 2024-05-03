@@ -9,13 +9,19 @@
 import { useLoaderData } from "@remix-run/react";
 import { loadComplainData } from "../utils/user.server";
 import { LoaderFunction, LoaderFunctionArgs } from "@remix-run/node";
+import { requireUserId } from "~/utils/session.server";
 
 type customLoaderFunctionArgs = LoaderFunctionArgs & { pageNumber: number };
 export const loader: LoaderFunction = async ({
   params,
-}: LoaderFunctionArgs) => {
+  request,
+}: LoaderFunctionArgs & { request: Request }) => {
   // Call the loader function from utils based on the action parameter
   console.log({ params });
+
+  const userId= await requireUserId(request)
+  console.log(userId)
+
   const pageNumber = 1;
   const complaints = await loadComplainData({
     params,

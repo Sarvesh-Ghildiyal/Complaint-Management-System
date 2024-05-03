@@ -23,7 +23,12 @@ export const sessionStorage = createCookieSessionStorage({
 });
 
 // api for creating userSession on login form submit request
-export async function createUserSession(userId: string, redirectTo: string) {
+
+export async function createUserSession(
+  userId: string,
+  redirectTo: string 
+  // message: string
+) {
   const session = await sessionStorage.getSession();
   session.set("userId", userId);
   return redirect(redirectTo, {
@@ -31,4 +36,34 @@ export async function createUserSession(userId: string, redirectTo: string) {
       "Set-Cookie": await sessionStorage.commitSession(session),
     },
   });
+}
+
+// Get session from the headers to get user ID
+export async function getUserSession(request: Request) {
+  return sessionStorage.getSession(request.headers.get("Cookie"));
+}
+
+// Get the user id that is required
+export async function getUserId(request: Request) {
+  const session = await getUserSession(request);
+  const userId = session.get("userId");
+  if (!userId || typeof userId !== "string") {
+    return null;
+  }
+  return userId;
+}
+
+
+// Function to get userId, and redirect to some url if not present
+export async function requireUserId(
+  request: Request,
+  redirectTo: string = new URL(request.url).pathname
+) {
+  const session = await getUserSession(request);
+  const userId = session.get("userId");
+  if (!userId || typeof userId !== "string") {
+    const searchParams = new URLSearchParams([["redirectTo", redirectTo]]);
+    throw redirect(`/login?${searchParams}`);
+  }
+  return userId;
 }
