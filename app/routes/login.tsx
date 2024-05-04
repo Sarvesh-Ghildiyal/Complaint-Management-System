@@ -1,40 +1,30 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 // Login form Ui route
 
-import {
-  ActionFunctionArgs,
-  LoaderFunctionArgs,
-} from "@remix-run/node";
+import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { Form } from "@remix-run/react";
 import { authenticator } from "~/utils/auth.server";
-import { createUserSession} from "~/utils/session.server";
+import { createUserSession } from "~/utils/session.server";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);
   const message = searchParams.get("message");
   // console.log(message);
-  
+
   return message;
 };
-
 export async function action({ request }: ActionFunctionArgs) {
-  // You should validate form data before proceeding but rn i wont
-  // Error handeling not done yet, to be done in route only
-  const form = await request.formData();
-  const userEmail = form.get("email") as string;
-  const password = form.get("password") as string;
-  // const confirmPassword = form.get("confirm-password") as string;
+  const formData = await request.formData();
+  const mail = formData.get("email") as string;
+  const password = formData.get("password") as string;
 
-  const user = await authenticator({ userEmail, password });
+  // Handle error, if form input is empty
 
-  if (user) {
-    let redirectTo = `/${user.role}`;
-    redirectTo = redirectTo.toLocaleLowerCase();
-    console.log(redirectTo);
-    // // Got the user Id and password now Create User Session
-    return createUserSession(user.userId, redirectTo);
-  }
+  const user = await authenticator(mail, password);
+
+  // Handle error if user is not present, either password or email is wrong!
+  if (user) return createUserSession(user);
 }
 
 export default function LoginPage() {

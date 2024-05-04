@@ -9,14 +9,15 @@ export const action: ActionFunction = async ({
 }: ActionFunctionArgs) => {
   const form = await request.formData();
   const name = form.get("name") as string;
-  const password = form.get("password") as string;
+  // const password = form.get("password") as string;
   const email = form.get("email") as string;
   const role = form.get("role") as Role;
   const department = form.get("department") as string;
 
   const salt = await bcrypt.genSalt(10);
+  const password="password"
   const hashPassword = await bcrypt.hash(password, salt);
-
+console.log(hashPassword)
   const user = {
     name: "Sar",
     passwordHash: hashPassword,

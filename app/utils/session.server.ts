@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 // Ths file is reponsible for handeling cookie management in the app
-import { createCookieSessionStorage, redirect, Session } from "@remix-run/node";
+import { $Enums} from "@prisma/client";
+import { createCookieSessionStorage, redirect} from "@remix-run/node";
 
 // Creating a cookie
 const sessionSecret = process.env.SESSION_SECRET;
@@ -24,13 +25,12 @@ export const sessionStorage = createCookieSessionStorage({
 
 // api for creating userSession on login form submit request
 
-export async function createUserSession(
-  userId: string,
-  redirectTo: string 
-  // message: string
-) {
+
+export async function createUserSession(user: { userId: string; name: string; role: $Enums.Role; }) {
   const session = await sessionStorage.getSession();
-  session.set("userId", userId);
+  session.set("userId", user.userId);
+  const redirectTo= `/${user.role.toLowerCase()}`
+console.log(user)
   return redirect(redirectTo, {
     headers: {
       "Set-Cookie": await sessionStorage.commitSession(session),
@@ -52,7 +52,6 @@ export async function getUserId(request: Request) {
   }
   return userId;
 }
-
 
 // Function to get userId, and redirect to some url if not present
 export async function requireUserId(
