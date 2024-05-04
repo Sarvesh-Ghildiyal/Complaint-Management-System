@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 // Ths file is reponsible for handeling cookie management in the app
-import { $Enums} from "@prisma/client";
-import { createCookieSessionStorage, redirect} from "@remix-run/node";
+import { $Enums } from "@prisma/client";
+import { createCookieSessionStorage, redirect } from "@remix-run/node";
 
 // Creating a cookie
 const sessionSecret = process.env.SESSION_SECRET;
@@ -18,19 +18,21 @@ export const sessionStorage = createCookieSessionStorage({
     secrets: [sessionSecret],
     sameSite: "lax",
     path: "/",
-    maxAge: 60 * 60 * 24 * 30,
+    maxAge: 60 * 60 * 20,
     httpOnly: true,
   },
 });
 
 // api for creating userSession on login form submit request
-
-
-export async function createUserSession(user: { userId: string; name: string; role: $Enums.Role; }) {
+export async function createUserSession(user: {
+  userId: string;
+  name: string;
+  role: $Enums.Role;
+}) {
   const session = await sessionStorage.getSession();
   session.set("userId", user.userId);
-  const redirectTo= `/${user.role.toLowerCase()}`
-console.log(user)
+  const redirectTo = `/${user.role.toLowerCase()}`;
+  console.log(user);
   return redirect(redirectTo, {
     headers: {
       "Set-Cookie": await sessionStorage.commitSession(session),
@@ -38,31 +40,21 @@ console.log(user)
   });
 }
 
-// Get session from the headers to get user ID
-export async function getUserSession(request: Request) {
-  return sessionStorage.getSession(request.headers.get("Cookie"));
-}
+// Checking if the user is authenticated or not
+export async function requireAuth(request: Request) {
+  const session = await sessionStorage.getSession(
+    request.headers.get("Cookie")
+  );
 
-// Get the user id that is required
-export async function getUserId(request: Request) {
-  const session = await getUserSession(request);
   const userId = session.get("userId");
-  if (!userId || typeof userId !== "string") {
-    return null;
-  }
-  return userId;
-}
 
-// Function to get userId, and redirect to some url if not present
-export async function requireUserId(
-  request: Request,
-  redirectTo: string = new URL(request.url).pathname
-) {
-  const session = await getUserSession(request);
-  const userId = session.get("userId");
-  if (!userId || typeof userId !== "string") {
-    const searchParams = new URLSearchParams([["redirectTo", redirectTo]]);
-    throw redirect(`/login?${searchParams}`);
-  }
+  if (!userId || typeof userId !== "string")
+    throw redirect("/login", {
+      headers: {
+        "Set-Cookies": await sessionStorage.commitSession(session, {
+          maxAge: 0,
+        }),
+      },
+    });
   return userId;
 }
