@@ -2,6 +2,7 @@ import { ActionFunction, LoaderFunction} from "@remix-run/node"
 
 export const loader :LoaderFunction= async()=>{
     // find many complains assigned to logged in worker
+    return null;
 }
 
 export const action: ActionFunction= async()=>{
