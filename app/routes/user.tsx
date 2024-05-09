@@ -1,28 +1,46 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
-import { Outlet} from "@remix-run/react";
+import { Outlet, useLoaderData } from "@remix-run/react";
 import { db } from "~/utils/db.server";
 import { requireAuth } from "~/utils/session.server";
+
+import Sidebar from "../components/sidebar";
+import Header from "../components/header";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const userId = await requireAuth(request);
 
   const user = await db.user.findUnique({
     where: { id: userId },
+    select: { name: true, role: true, complaints: true },
   });
 
-  //Authorize the user with url
+  //Authorize the user with url, have loopholes for params routes
   const role = user?.role.toLowerCase() as string;
   if (request.url.includes(`/${role}`)) return user;
-  
   //   Error handeling yet to be done
   else throw new Error("402 unauthorized");
 }
+
 export default function User() {
+  const user = useLoaderData<typeof loader>();
+const user_nav_links = [
+  { text: "Fill Complain", path: "/fillComp" },
+  { text: "View Complain", path: "/view" },
+  { text: "Edit Complain", path: "/edit" },
+  { text: "Check Status", path: "/status" },
+  { text: "Remark", path: "/remark" },
+  { text: "Delete", path: "/delete" },
+];
+
   return (
-    <div>
-      <h2>User layout :)</h2>
-      {/* Will call for header, footer and sidebar here */}
-      <Outlet />
+    <div className="bg-gray-50 w-screen font-light flex">
+      <Sidebar navLinks={user_nav_links} />
+     
+      <main className="flex-grow">
+        <Header userName={user?.name} />
+
+        <Outlet />
+      </main>
     </div>
   );
 }
