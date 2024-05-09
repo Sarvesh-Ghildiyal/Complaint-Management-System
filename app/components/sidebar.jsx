@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import logo from "../THDCIHET-LOGO-removebg-preview.png";
-import { Link } from "@remix-run/react";
+import { Link, Form } from "@remix-run/react";
 function Sidebar({ navLinks }) {
   return (
     <aside className="bg-[#E5F3FF] sm:w-[24%] md:w-[20%] lg:w-[17%] h-screen flex flex-col">
@@ -48,20 +48,21 @@ function Sidebar({ navLinks }) {
               </svg>
             </button>
           </div> */}
-
-      <div className="mt-auto h-auto px-3 mb-2 text-2xl text-blue-500 hover:bg-blue-600 hover:text-white">
-        <button className="flex items-center group">
-          <span className="no-shrink">Log Out</span>
-          <svg
-            className="inline ml-[-0.5] flex-grow hover:group-hover:translate-x-2 transform tansition-transform transition duration-200 ease-in-out"
-            xmlns="http://www.w3.org/2000/svg"
-            height="1rem"
-            viewBox="0 0 24 24"
-          >
-            <path fill="currentColor" d="M7 10l5 5 5-5z" />
-          </svg>
-        </button>
-      </div>
+      <Form method="post">
+        <div className=" mt-40 h-auto px-3 text-2xl text-blue-500 hover:bg-blue-600 hover:text-white">
+          <button className="flex items-center group" type="submit">
+            <span className="no-shrink">Log Out</span>
+            <svg
+              className="inline ml-[-0.5] flex-grow hover:group-hover:translate-x-2 transform tansition-transform transition duration-200 ease-in-out"
+              xmlns="http://www.w3.org/2000/svg"
+              height="1rem"
+              viewBox="0 0 24 24"
+            >
+              <path fill="currentColor" d="M7 10l5 5 5-5z" />
+            </svg>
+          </button>
+        </div>
+      </Form>
     </aside>
   );
 }

@@ -1,7 +1,7 @@
-import { LoaderFunctionArgs } from "@remix-run/node";
+import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import { db } from "~/utils/db.server";
-import { requireAuth } from "~/utils/session.server";
+import { logout, requireAuth } from "~/utils/session.server";
 
 import Sidebar from "../components/sidebar";
 import Header from "../components/header";
@@ -21,21 +21,24 @@ export async function loader({ request }: LoaderFunctionArgs) {
   else throw new Error("402 unauthorized");
 }
 
+export const action = async ({ request }: ActionFunctionArgs) =>
+  logout(request);
+
 export default function User() {
   const user = useLoaderData<typeof loader>();
-const user_nav_links = [
-  { text: "Fill Complain", path: "/fillComp" },
-  { text: "View Complain", path: "/view" },
-  { text: "Edit Complain", path: "/edit" },
-  { text: "Check Status", path: "/status" },
-  { text: "Remark", path: "/remark" },
-  { text: "Delete", path: "/delete" },
-];
+  const user_nav_links = [
+    { text: "Fill Complain", path: "/fillComp" },
+    { text: "View Complain", path: "/view" },
+    { text: "Edit Complain", path: "/edit" },
+    { text: "Check Status", path: "/status" },
+    { text: "Remark", path: "/remark" },
+    { text: "Delete", path: "/delete" },
+  ];
 
   return (
     <div className="bg-gray-50 w-screen font-light flex">
       <Sidebar navLinks={user_nav_links} />
-     
+
       <main className="flex-grow">
         <Header userName={user?.name} />
 

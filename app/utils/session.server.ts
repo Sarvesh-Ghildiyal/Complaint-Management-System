@@ -58,3 +58,15 @@ export async function requireAuth(request: Request) {
     });
   return userId;
 }
+
+export async function logout(request: Request) {
+  const session = await sessionStorage.getSession(
+    request.headers.get("Cookie")
+  );
+
+  return redirect("/login", {
+    headers: {
+      "Set-Cookie": await sessionStorage.destroySession(session),
+    },
+  });
+}
