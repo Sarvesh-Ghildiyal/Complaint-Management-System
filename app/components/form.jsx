@@ -97,7 +97,7 @@ function ComplainForm({name}) {
           </label>
           <textarea
             id="message"
-            name="body"
+            name="comp_body"
             rows={4}
             placeholder="Write your thoughts here..."
             className="appearance-none w-full p-2.5 text-sm bg-gray-100 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 focus:bg-white dark:placeholder-gray-700"

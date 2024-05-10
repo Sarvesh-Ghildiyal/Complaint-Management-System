@@ -6,6 +6,7 @@ interface User {
   id:string,
   email:string
   role: $Enums.Role;
+  department:string
 }
 
 export const UserContext = createContext<User | undefined | null>(undefined);

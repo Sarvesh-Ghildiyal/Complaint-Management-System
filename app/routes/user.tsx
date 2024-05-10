@@ -13,7 +13,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   const user = await db.user.findUnique({
     where: { id: userId },
-    select: { id:true, email:true ,name: true, role: true},
+    select: { id:true, email:true ,name: true, role: true, department:true},
   });
 
   //Authorize the user with url, have loopholes for params routes
