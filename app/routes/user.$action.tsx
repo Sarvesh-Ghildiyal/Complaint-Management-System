@@ -15,6 +15,7 @@ type customLoaderFunctionArgs = LoaderFunctionArgs & { pageNumber: number };
 export const loader: LoaderFunction = async ({
   params,
 }: LoaderFunctionArgs) => {
+
   const pageNumber = 1;
   const complaints = await loadComplainData({
     params,

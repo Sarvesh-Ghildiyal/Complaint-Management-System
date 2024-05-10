@@ -5,13 +5,15 @@ import { logout, requireAuth } from "~/utils/session.server";
 
 import Sidebar from "../components/sidebar";
 import Header from "../components/header";
+import { UserContext } from "~/context/userContext";
+
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const userId = await requireAuth(request);
 
   const user = await db.user.findUnique({
     where: { id: userId },
-    select: { name: true, role: true, complaints: true },
+    select: { id:true, email:true ,name: true, role: true},
   });
 
   //Authorize the user with url, have loopholes for params routes
@@ -24,7 +26,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export const action = async ({ request }: ActionFunctionArgs) =>
   logout(request);
 
-export default function User() {
+export default function UserRoot() {
   const user = useLoaderData<typeof loader>();
   const user_nav_links = [
     { text: "Fill Complain", path: "/fillComp" },
@@ -37,13 +39,15 @@ export default function User() {
 
   return (
     <div className="bg-gray-50 w-screen font-light flex">
-      <Sidebar navLinks={user_nav_links} />
+      <UserContext.Provider value={user}>
+        <Sidebar navLinks={user_nav_links} />
 
-      <main className="flex-grow">
-        <Header userName={user?.name} />
+        <main className="flex-grow">
+          <Header userName={user?.name} />
 
-        <Outlet />
-      </main>
+          <Outlet />
+        </main>
+      </UserContext.Provider>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { Form} from "@remix-run/react";
 
-function ComplainForm() {
+// eslint-disable-next-line react/prop-types
+function ComplainForm({name}) {
 
   return (
     <div className="w-4/5 h-auto mx-auto mt-14">
@@ -79,7 +80,7 @@ function ComplainForm() {
               type="text"
               id="reported_by"
               name="reported_by"
-             
+              defaultValue={name}
               placeholder="e.g. Dan"
               className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             />
