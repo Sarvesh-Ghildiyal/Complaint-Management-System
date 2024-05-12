@@ -1,29 +1,27 @@
 // Fill complain form for the user
 // import { useContext } from 'react';
-import { ActionFunctionArgs } from "@remix-run/node";
+import { ActionFunctionArgs, json, redirect } from "@remix-run/node";
 import Form from "../components/form";
 import { useUserContext } from "~/context/userContext";
 import { db } from "~/utils/db.server";
-import { Complaint } from "@prisma/client";
+import { Complaint, User } from "@prisma/client";
+import { getUser } from "~/utils/session.server";
+import { useRouteLoaderData } from "@remix-run/react";
 
 
-function GetComplaintData(formData: FormData) {
+function GetComplaintData(formData: FormData, user) {
   const title =formData.get("title");
-  const room_no =formData.get("room_no");
+  const room_no = parseInt(formData.get("room_no") as string);
   const requested_by =formData.get("requested_by");
   const reported_by =formData.get("reported_by");
   const body =formData.get("comp_body");
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-
-  // const userId = user.id;
-  // const department = user.department;
 
   const complaintData: Complaint = {
-    userId: "f86026c5-3070-425f-9986-509529ce4b7a",
-    department: "kj",
+    userId: user.id,
+    department: user.department,
     title: title,
-    room_n0: 120,
+    room_n0: room_no,
     reported_by: reported_by,
     requested_by: requested_by,
     body: body,
@@ -32,15 +30,18 @@ function GetComplaintData(formData: FormData) {
 }
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
-  const complaintData =  GetComplaintData(formData);
+  const user= await getUser(request)
+  const complaintData =  GetComplaintData(formData, user);
  
-  return db.complaint.create({data:complaintData})
+  // Complain is created now show the message
+   await db.complaint.create({data:complaintData})
+ 
+  //  Refresh redirect to same page with some message, !success
+  return redirect(request.url, { message: 'Room number submitted successfully!' });
 
-
-  return null;
 };
 export default function Comp() {
-  const user = useUserContext();
-  console.log(user);
+  
+  const user= useRouteLoaderData('routes/user')
   return <Form name={user.name} />;
 }

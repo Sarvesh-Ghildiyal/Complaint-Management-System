@@ -1,7 +1,6 @@
 import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
-import { db } from "~/utils/db.server";
-import { logout, requireAuth } from "~/utils/session.server";
+import { getUser, logout, requireAuth } from "~/utils/session.server";
 
 import Sidebar from "../components/sidebar";
 import Header from "../components/header";
@@ -9,13 +8,10 @@ import { UserContext } from "~/context/userContext";
 
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const userId = await requireAuth(request);
+  await requireAuth(request);
 
-  const user = await db.user.findUnique({
-    where: { id: userId },
-    select: { id:true, email:true ,name: true, role: true, department:true},
-  });
-
+  const user= await getUser(request)
+  
   //Authorize the user with url, have loopholes for params routes
   const role = user?.role.toLowerCase() as string;
   if (request.url.includes(`/${role}`)) return user;

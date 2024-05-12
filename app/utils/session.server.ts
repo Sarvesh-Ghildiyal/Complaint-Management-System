@@ -3,6 +3,7 @@
 // Ths file is reponsible for handeling cookie management in the app
 import { $Enums } from "@prisma/client";
 import { createCookieSessionStorage, redirect } from "@remix-run/node";
+import { db } from "./db.server";
 
 // Creating a cookie
 const sessionSecret = process.env.SESSION_SECRET;
@@ -56,9 +57,17 @@ export async function requireAuth(request: Request) {
         }),
       },
     });
-  return userId;
+  return "Logged in Successfully";
 }
-
+export async function getUser(request:Request){
+  const session= await sessionStorage.getSession(request.headers.get("Cookie"))
+  const userId= session.get("userId")
+  const user = await db.user.findUnique({
+    where: { id: userId },
+    select: { id: true, email: true, name: true, role: true, department: true },
+  });
+  return user;
+}
 export async function logout(request: Request) {
   const session = await sessionStorage.getSession(
     request.headers.get("Cookie")
