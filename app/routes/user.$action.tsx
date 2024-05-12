@@ -46,7 +46,8 @@ export default function UserActionPage() {
   const param= useParams()
   const action= capitalizeFirstLetter(param.action as string)
   
-  return <List action={action} complains={complaints}/>;
+  // eslint-disable-next-line jsx-a11y/aria-role
+  return <List action={action} complains={complaints} role="USER" />;
 }
 
 

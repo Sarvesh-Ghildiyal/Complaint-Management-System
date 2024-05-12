@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/aria-role */
 import { ActionFunction, ActionFunctionArgs, LoaderFunction } from "@remix-run/node";
 import { LoaderFunctionArgs, useLoaderData } from "react-router";
 import ComplainForm from "~/components/complaintForm";
@@ -9,7 +10,7 @@ import { db } from "~/utils/db.server";
 export const loader: LoaderFunction = async ({
   params,
 }: LoaderFunctionArgs) => {
-  const compId = parseInt(params.compId);
+  const compId = parseInt(params.compId as string);
   const complaint = await db.complaint.findFirst({
     where: { id: compId },
   });
@@ -37,7 +38,7 @@ export default function AdminCompID() {
       <div className="w-4/5 mx-auto mt-14 font-medium text-2xl">
         assigns complaint or delete
       </div>
-      <ComplainForm complaint={complaint} />
+      <ComplainForm  role='ADMIN' complaint={complaint} />
     </>
   );
 }

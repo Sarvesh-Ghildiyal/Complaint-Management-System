@@ -2,7 +2,7 @@
 import { Form } from "@remix-run/react";
 
 // eslint-disable-next-line react/prop-types
-function AdminCompForm({ complaint }) {
+function AdminCompForm({ role, complaint }) {
   return (
     <div className="w-4/5 h-auto mx-auto mt-14">
       {/* For Displaying any error messages */}
@@ -31,21 +31,24 @@ function AdminCompForm({ complaint }) {
             />
           </div>
 
-          <input value={complaint.id} type='hidden' name="compId"/>
+          <input value={complaint.id} type="hidden" name="compId" />
           {/* Assign Complaint To */}
           <div className="w-full md:w-1/2 px-3 mb-4">
             <label
               htmlFor="reported_by"
               className="uppercase tracking-wide text-xs sm:text-sm font-normal mb-2"
             >
-              Assign to
+              Assigned to
             </label>
             <input
               type="text"
               id="assign_to"
               name="assign_to"
-              value="6ccdfaf1-116b-4f18-aab9-71749defc144"
-              placeholder="e.g. Dan"
+              value={
+                role === "ADMIN"
+                  ? "6ccdfaf1-116b-4f18-aab9-71749defc144"
+                  : complaint.workerId
+              }
               className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             />
           </div>

@@ -1,6 +1,6 @@
 import { Outlet, useLoaderData } from "@remix-run/react";
-import { LoaderFunctionArgs } from "@remix-run/node";
-import { getUser, requireAuth } from "~/utils/session.server";
+import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import { getUser, logout, requireAuth } from "~/utils/session.server";
 import Sidebar from "~/components/sidebar";
 import Header from "~/components/header";
 
@@ -15,6 +15,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
   //   Error handeling yet to be done
   else throw new Error("402 unauthorized");
 }
+
+export const action = async ({ request }: ActionFunctionArgs) =>
+  logout(request);
 
 export default function Admin() {
   const user = useLoaderData<typeof loader>();
