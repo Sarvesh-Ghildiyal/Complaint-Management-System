@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-function List({ action}) {
+function List({ action, complains}) {
   return (
     <div className="w-4/5 h-auto mx-auto mt-14">
       {/* For Displaying any error messages */}
@@ -14,6 +14,8 @@ function List({ action}) {
       <div className="w-full rounded-lg">
         <div className="bg-white py-2 md:py-4 px-2 md:px-4 xl:px-5">
           <div className="sm:flex items-center justify-between">
+           
+           {/* Got to implement Filter Logics */}
             <div className="flex items-center">
               <Link
                 to="/complaints/all"
@@ -63,7 +65,7 @@ function List({ action}) {
                 </tr>
               </thead>
               {/* Displaying shared complain Data */}
-              {/* <tbody>
+              <tbody>
                 {complains.map((complain) => (
                   <tr
                     className="bg-white lg:hover:bg-gray-50"
@@ -82,7 +84,7 @@ function List({ action}) {
                     <td className="p-3 text-gray-800 border border-b text-center">
                       <span
                         className={`rounded ${
-                          complain.status === "open"
+                          complain.status === "OPEN"
                             ? "text-green-500"
                             : "text-red-500"
                         } py-1 px-3`}
@@ -93,9 +95,7 @@ function List({ action}) {
                     <td className="p-3 text-gray-800 border border-b text-center">
                       <Link
                         to={
-                          action === "View"
-                            ? `/complaints/${complain.cid}`
-                            : `/edit/complaints/${complain.cid}`
+                            `${complain.id}`
                         }
                         className="text-blue-400 hover:text-blue-600 underline"
                       >
@@ -104,7 +104,7 @@ function List({ action}) {
                     </td>
                   </tr>
                 ))}
-              </tbody> */}
+              </tbody>
             </table>
           </div>
         </div>

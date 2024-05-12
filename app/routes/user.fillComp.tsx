@@ -29,6 +29,7 @@ function GetComplaintData(formData: FormData, user) {
   return complaintData;
 }
 export const action = async ({ request }: ActionFunctionArgs) => {
+  // Get form validation
   const formData = await request.formData();
   const user= await getUser(request)
   const complaintData =  GetComplaintData(formData, user);
