@@ -1,14 +1,13 @@
-import { Outlet } from "@remix-run/react";
+import { Outlet, useLoaderData } from "@remix-run/react";
 import { LoaderFunctionArgs } from "@remix-run/node";
-import { requireAuth } from "~/utils/session.server";
-import { db } from "~/utils/db.server";
+import { getUser, requireAuth } from "~/utils/session.server";
+import Sidebar from "~/components/sidebar";
+import Header from "~/components/header";
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const userId = await requireAuth(request);
+  await requireAuth(request);
 
-  const user = await db.user.findUnique({
-    where: { id: userId },
-  });
+  const user = await getUser(request);
 
   //Authorize the user with url
   const role = user?.role.toLowerCase() as string;
@@ -18,11 +17,21 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function Admin() {
+  const user = useLoaderData<typeof loader>();
+ const admin_nav_links = [
+   { text: "View Users", path: "/users" },
+   { text: "View Complaints", path: "/complaints" },
+  //  { text: "Close Complaints", path: "/asign" },
+ ];
   return (
-    <div>
-      <h2>Admin layout</h2>
-      {/* Will call for header, footer and sidebar here */}
-      <Outlet />
+    <div className="bg-gray-50 w-screen font-light flex overflow-hidden">
+        <Sidebar navLinks={admin_nav_links} />
+
+        <main className="flex-grow">
+          <Header userName={user?.name} />
+
+          <Outlet />
+        </main>
     </div>
   );
 }

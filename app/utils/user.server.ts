@@ -6,6 +6,7 @@ import { Complaint } from "@prisma/client";
 
 type customLoaderFunctionArgs = LoaderFunctionArgs & { pageNumber: number };
 
+// Pagination function to load limited complaint approach
 export const loadComplainData = async ({
   params,
   pageNumber,

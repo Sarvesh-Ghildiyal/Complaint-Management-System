@@ -1,8 +1,7 @@
 export default function AdminIndex() {
   return (
-    <>
-      <h3>Hey <i>Admin</i> index heere</h3>
-      <p>Would have cards for the display</p>
-    </>
+    <div className="w-4/5 h-auto mx-auto mt-14 font-medium text-2xl">
+      Different Cards with links :)
+    </div>
   );
 }

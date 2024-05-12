@@ -34,42 +34,6 @@ export default function AdminUser() {
   console.log(actionData);
 
   return (
-    <div>
-      <h2>Admin functionality on User</h2>
-      {/* Add user form */}
-      <form method="post">
-        <input type="hidden" name="action" value="add" />
-
-        <div>
-          <label htmlFor="name">Name</label>
-          <input type="text" name="name" />
-        </div>
-
-        <div>
-          <label htmlFor="email">Email</label>
-          <input type="email" name="email" />
-        </div>
-
-        <div>
-          <label htmlFor="role">Role</label>
-          <input type="text" name="role" />
-        </div>
-
-        <div>
-          <label htmlFor="department">Department</label>
-          <input type="text" name="department" />
-        </div>
-
-        <button type="submit">Add User</button>
-      </form>
-
-      {/* Delete user form */}
-      <form method="post">
-        <input type="hidden" name="action" value="delete" />
-        {/* Input field for selecting the user to delete */}
-        <input type="hidden" name="userId" value="{userId}" />
-        <button type="submit">Delete User</button>
-      </form>
-    </div>
+    <h2>Users page</h2>
   );
 }

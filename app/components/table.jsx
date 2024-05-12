@@ -1,21 +1,20 @@
 import { Link } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-function List({ action, complains}) {
+function List({ action, complains, role }) {
   return (
     <div className="w-4/5 h-auto mx-auto mt-14">
       {/* For Displaying any error messages */}
       {/* Assuming you have an Error component */}
       {/* <Error /> */}
-
-      <p className="text-3xl font-[Kaisei] mb-5">{action} your Complaints</p>
-
+      {role === "USER" && (
+        <p className="text-3xl font-[Kaisei] mb-5">{action} your Complaints</p>
+      )}
       {/* Table */}
       <div className="w-full rounded-lg">
         <div className="bg-white py-2 md:py-4 px-2 md:px-4 xl:px-5">
           <div className="sm:flex items-center justify-between">
-           
-           {/* Got to implement Filter Logics */}
+            {/* Got to implement Filter Logics */}
             <div className="flex items-center">
               <Link
                 to="/complaints/all"
@@ -69,7 +68,7 @@ function List({ action, complains}) {
                 {complains.map((complain) => (
                   <tr
                     className="bg-white lg:hover:bg-gray-50"
-                    key={complain.cid}
+                    key={complain.id}
                   >
                     <td className="p-3 text-gray-800 border border-b text-center">
                       {complain.title.length > 50
@@ -94,12 +93,10 @@ function List({ action, complains}) {
                     </td>
                     <td className="p-3 text-gray-800 border border-b text-center">
                       <Link
-                        to={
-                            `${complain.id}`
-                        }
+                        to={`${complain.id}`}
                         className="text-blue-400 hover:text-blue-600 underline"
                       >
-                        {action}
+                        View
                       </Link>
                     </td>
                   </tr>

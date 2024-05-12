@@ -36,7 +36,7 @@ model Complaint {
 
   // Assinging complain to some worker
   workerId    String?
-  Worker      User?     @relation("comp", fields: [workerId], references: [email], onDelete: Cascade)
+  Worker      User?     @relation("comp", fields: [workerId], references: [id], onDelete: Cascade)
   assigned_at DateTime?
   due_date    DateTime?
 
