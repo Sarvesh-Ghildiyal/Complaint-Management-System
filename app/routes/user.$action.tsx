@@ -45,6 +45,9 @@ export default function UserActionPage() {
   console.log(complaints)
   const param= useParams()
   const action= capitalizeFirstLetter(param.action as string)
+  
   return <List action={action} complains={complaints}/>;
 }
 
+
+// Got to implement Pagination, complain Filter logcs 

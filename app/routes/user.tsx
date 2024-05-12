@@ -34,7 +34,7 @@ export default function UserRoot() {
   ];
 
   return (
-    <div className="bg-gray-50 w-screen font-light flex">
+    <div className="bg-gray-50 w-screen font-light flex overflow-hidden">
       <UserContext.Provider value={user}>
         <Sidebar navLinks={user_nav_links} />
 

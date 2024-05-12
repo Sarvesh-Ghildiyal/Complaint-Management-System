@@ -46,7 +46,7 @@ function List({ action, complains}) {
             {/* Assuming you have a pagination component */}
             {/* <Pagination /> */}
           </div>
-          <div className="mt-7 table-responsive">
+          <div className="mt-5 table-responsive">
             <table className="border-collapse w-full">
               <thead>
                 <tr>

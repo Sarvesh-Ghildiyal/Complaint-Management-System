@@ -4,6 +4,7 @@
 import { ActionFunctionArgs, json} from "@remix-run/node";
 import { actionComplainData } from "~/utils/user.server";
 import { Form, useActionData } from "@remix-run/react";
+import ComplainForm from "~/components/form";
 
 export async function action({request, params}: ActionFunctionArgs) {
   const { action, compId } = params as { action: string; compId: string };
@@ -23,6 +24,7 @@ export default function ActionId() {
         <input type="text" name="name" />
         <button type="submit">Submit</button>
       </Form>
+      <ComplainForm name="he"/>
     </div>
   );
 }
