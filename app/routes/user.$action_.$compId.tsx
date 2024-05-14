@@ -20,10 +20,6 @@ export default function ActionId() {
   return (
     <div>
       <h2>complain Id page :)</h2>
-      <Form method="post">
-        <input type="text" name="name" />
-        <button type="submit">Submit</button>
-      </Form>
       <ComplainForm name="he"/>
     </div>
   );
