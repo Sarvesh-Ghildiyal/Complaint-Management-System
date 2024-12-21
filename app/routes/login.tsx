@@ -25,6 +25,8 @@ export async function action({ request }: ActionFunctionArgs) {
 
   // Handle error if user is not present, either password or email is wrong!
   if (user) return createUserSession(user);
+
+  return null;
 }
 
 export default function LoginPage() {
