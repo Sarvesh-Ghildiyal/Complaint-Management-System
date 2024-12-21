@@ -96,7 +96,7 @@ function List({ action, complains, role }) {
                         to={`${complain.id}`}
                         className="text-blue-400 hover:text-blue-600 underline"
                       >
-                        View
+                        {action? action :'View'}
                       </Link>
                     </td>
                   </tr>

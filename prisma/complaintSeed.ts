@@ -1,9 +1,12 @@
-import { db } from "~/utils/db.server";
+import { PrismaClient } from "@prisma/client";
+const db = new PrismaClient();
 
 function getComplaints() {
   return [
     {
-      userId: "6ccdfaf1-116b-4f18-aab9-71749defc144",
+      // hardcoded userId, so keep that in mind
+      // next time you try to run complaint migrations
+      userId: "0fc8a0a9-d498-4200-8f8e-1cb5fc8280a0",
       title: "Printer not working",
       room_n0: 205,
       department: "CSE",
@@ -12,7 +15,7 @@ function getComplaints() {
       body: "printers not working properly",
     },
     {
-      userId: "6ccdfaf1-116b-4f18-aab9-71749defc144",
+      userId: "0fc8a0a9-d498-4200-8f8e-1cb5fc8280a0",
       title: "AC not working",
       room_n0: 205,
       department: "CSE",
@@ -21,7 +24,7 @@ function getComplaints() {
       body: "AC not working properly",
     },
     {
-      userId: "6ccdfaf1-116b-4f18-aab9-71749defc144",
+      userId: "0fc8a0a9-d498-4200-8f8e-1cb5fc8280a0",
       title: "Fan not working",
       room_n0: 205,
       department: "CSE",
@@ -30,7 +33,7 @@ function getComplaints() {
       body: "Fan not working properly",
     },
     {
-      userId: "6ccdfaf1-116b-4f18-aab9-71749defc144",
+      userId: "0fc8a0a9-d498-4200-8f8e-1cb5fc8280a0",
       title: "Chair not working",
       room_n0: 205,
       department: "CSE",
@@ -39,7 +42,7 @@ function getComplaints() {
       body: "Chair not working properly",
     },
     {
-      userId: "6ccdfaf1-116b-4f18-aab9-71749defc144",
+      userId: "0fc8a0a9-d498-4200-8f8e-1cb5fc8280a0",
       title: "Table not working",
       room_n0: 205,
       department: "CSE",
@@ -48,7 +51,7 @@ function getComplaints() {
       body: "Table not working properly",
     },
     {
-      userId: "6ccdfaf1-116b-4f18-aab9-71749defc144",
+      userId: "0fc8a0a9-d498-4200-8f8e-1cb5fc8280a0",
       title: "Heat not working",
       room_n0: 205,
       department: "CSE",

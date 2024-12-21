@@ -33,7 +33,6 @@ export async function createUserSession(user: {
   const session = await sessionStorage.getSession();
   session.set("userId", user.userId);
   const redirectTo = `/${user.role.toLowerCase()}`;
-  console.log(user);
   return redirect(redirectTo, {
     headers: {
       "Set-Cookie": await sessionStorage.commitSession(session),

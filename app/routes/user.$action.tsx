@@ -6,7 +6,7 @@
 
 // app/routes/user.$action.tsx
 
-import { loadComplainData } from "../utils/user.server";
+// import { loadComplainData } from "../utils/user.server";
 import { LoaderFunction, LoaderFunctionArgs } from "@remix-run/node";
 import List from "../components/table";
 import { useLoaderData, useParams } from "@remix-run/react";
@@ -42,7 +42,6 @@ function capitalizeFirstLetter(string:string) {
 
 export default function UserActionPage() {
   const complaints= useLoaderData()
-  console.log(complaints)
   const param= useParams()
   const action= capitalizeFirstLetter(param.action as string)
   

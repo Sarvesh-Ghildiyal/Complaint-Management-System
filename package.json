@@ -49,7 +49,7 @@
     "node": ">=18.0.0"
   },
   "prisma": {
-     "seed": "node --loader ts-node/esm ./prisma/userSeed.ts && node --loader ts-node/esm ./prisma/complaintSeed.ts"
+     "seed": "node --loader ts-node/esm ./prisma/complaintSeed.ts"
 
   }
 }

@@ -14,7 +14,11 @@ export const authenticator = async (userEmail: string, password: string) => {
     return null;
   }
 
-  const isCorrectPassword = await bcrypt.compare(password, user.passwordHash);
+  // Cryptographic check
+  // const isCorrectPassword = await bcrypt.compare(password, user.passwordHash);
+
+  // Normal plain text check
+  const isCorrectPassword = password === user.passwordHash;
 
   if (!isCorrectPassword) return null;
   return { userId: user.id, name: user.name, role: user.role };
